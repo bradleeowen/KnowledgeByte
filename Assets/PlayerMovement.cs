@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public Animator animator;
     bool isFacingRight = true;
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -57,16 +58,20 @@ public class PlayerMovement : MonoBehaviour
 
         ProcessGravity();
         GroundCheck();
-        
+
         ProcessWallSlide();
         ProcessWallJump();
 
         // Correct Unity property is velocity, not linearVelocity
-        if (!isWallJumping) 
+        if (!isWallJumping)
         {
             rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
             Flip();
         }
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
+        animator.SetFloat("magnitude", rb.linearVelocity.magnitude);
+        animator.SetBool("isWallSliding", isWallSliding);
+
     }
 
     private void ProcessGravity()
@@ -129,10 +134,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpsRemaining--;
+                animator.SetTrigger("jump");
             }
             else if (context.canceled)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocityY * 0.5f); // Optionally handle jump cancellation
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocityY * 0.5f);
+                // Optionally handle jump cancellation
+                 animator.SetTrigger("jump");
             }
         }
         //wallJUmp
@@ -141,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = true;
             rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpTimer = 0;
+            animator.SetTrigger("jump");
 
             //Force a flip
             if (transform.localScale.x != wallJumpDirection)
