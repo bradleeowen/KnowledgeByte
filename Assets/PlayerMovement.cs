@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && wallJumpTimer > 0f)
         {
             isWallJumping = true;
-            rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpTimer = 0;
 
             //Force a flip
