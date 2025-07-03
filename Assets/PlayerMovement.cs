@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         ProcessWallJump();
 
         // Correct Unity property is velocity, not linearVelocity
-        if (!isWallJumping)
+        if (!isWallJumping) 
         {
             rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
             Flip();
