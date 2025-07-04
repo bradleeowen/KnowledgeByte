@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void update()
+    void Update()
     {
         Debug.Log("Level Complete");
 
