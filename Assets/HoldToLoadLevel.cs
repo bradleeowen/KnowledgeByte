@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,8 @@ public class HoldToLoadLevel : MonoBehaviour
     public float holdTimer = 0;
     private bool isHolding = false;
 
+    public static event Action OnHoldComplete;
+
 
     // Update is called once per frame
     void Update()
@@ -22,7 +25,8 @@ public class HoldToLoadLevel : MonoBehaviour
             fillCircle.fillAmount = holdTimer / holdDuration;
             if (holdTimer >= holdDuration)
             {
-                //LoadNextLevel();
+                OnHoldComplete.Invoke();
+                ResetHold();
             }
         }
     }
