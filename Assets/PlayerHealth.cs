@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     public HealthUI healthUI;
 
     private SpriteRenderer spriterenderer;
+
+    public static event Action OnPlayerDied;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-
+            OnPlayerDied.Invoke();
         }
     }
 
