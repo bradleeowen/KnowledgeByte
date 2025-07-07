@@ -31,14 +31,30 @@ public class ObjectSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!tilemap.gameObject.activeInHierarchy)
+        {
+            LevelChange();
+        }
+        
+        if (!isSpawning && ActiveObjectCount() < maxObjects)
+        {
+            StartCoroutine(SpawnObjectsIfNeeded());
+        }
+        
     }
 
+    private void LevelChange()
+    {
+        tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        GatherValidPositions();
+        DestroyAllSpawnedObjects();
+    }
+    
     private int ActiveObjectCount()
     {
         spawnObjects.RemoveAll(item => item == null);
         return spawnObjects.Count;
-     }
+    }
     private IEnumerator SpawnObjectsIfNeeded()
     {
         isSpawning = true;
@@ -121,7 +137,20 @@ public class ObjectSpawner : MonoBehaviour
             validSpawnPositions.Add(gameObject.transform.position);
             Destroy(gameObject);
         }
-    }        
+    }
+
+    private void DestroyAllSpawnedObjects()
+    {
+        foreach (GameObject obj in spawnObjects)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+
+        }
+        spawnObjects.Clear();
+    }    
     private void GatherValidPositions()
     {
         validSpawnPositions.Clear();
@@ -136,7 +165,7 @@ public class ObjectSpawner : MonoBehaviour
                 TileBase tile = allTiles[x + y * boundsInt.size.x];
                 if (tile != null)
                 {
-                    Vector3 place = start + new Vector3(x, y, 0);
+                    Vector3 place = start + new Vector3(x + 0.5f, y + 1.5f, 0);
                     validSpawnPositions.Add(place);
                 }
             }

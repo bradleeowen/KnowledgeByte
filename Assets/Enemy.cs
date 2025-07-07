@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     public float chasespeed = 2f;
     public float jumpforce = 2f;
     public LayerMask groundLayer;
@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isGrounded && shouldJump)
         {
