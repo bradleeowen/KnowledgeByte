@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
     public TMP_Text survivedText;
     private int survivedLevelsCount;
 
+    public static event Action OnReset;
+
     void Start()
     {
         progressAmount = 0;
@@ -37,7 +39,7 @@ public class GameController : MonoBehaviour
         survivedText.text = "You survived " + survivedLevelsCount + " LEVEL!";
 
         if(survivedLevelsCount != 1) survivedText.text += "s";
-        
+        Time.timeScale = 0;
     }
 
     public void ResetGame()
@@ -45,6 +47,8 @@ public class GameController : MonoBehaviour
         gameOverScreen.SetActive(false);
         survivedLevelsCount = 0;
         LoadLevel(0, false);
+        OnReset?.Invoke();
+        Time.timeScale = 1;
     }
     
     
