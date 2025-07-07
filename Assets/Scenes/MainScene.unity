@@ -1878,9 +1878,9 @@ MonoBehaviour:
   - {fileID: 6863710941907025967, guid: 5fb3270ba60b1694686c6b91609a27f8, type: 3}
   - {fileID: 505850073659684279, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
   bigGemProbability: 0.2
-  enemyProbability: 0.1
+  enemyProbability: 0.4
   maxObjects: 5
-  gemLifeTime: 5
+  gemLifeTime: 10
   spawnInterval: 0.5
 --- !u!4 &938184111
 Transform:
@@ -6535,6 +6535,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 505850073659684279, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3874158134867915780, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.61406
@@ -6598,7 +6602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6863710941907025967, guid: 5fb3270ba60b1694686c6b91609a27f8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9106033751043640680, guid: 5fb3270ba60b1694686c6b91609a27f8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6745,6 +6749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8430979246179654007, guid: 4f6bd2449f558934995294a573eeeae1, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -6772,7 +6780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7040693587371599892, guid: eec349f4cde56fb48a7bcb96ab8ed80b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7060228380807515531, guid: eec349f4cde56fb48a7bcb96ab8ed80b, type: 3}
       propertyPath: m_LocalPosition.x
