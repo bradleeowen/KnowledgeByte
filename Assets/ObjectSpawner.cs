@@ -99,9 +99,28 @@ public class ObjectSpawner : MonoBehaviour
         if (validPositionFound)
         {
             ObjectType objectType = RandomObjectType();
+            GameObject gameObject = Instantiate(objectPrefabs[(int)objectType], spawnPosition, Quaternion.identity);
+            spawnObjects.Add(gameObject);
+
+            if (objectType != ObjectType.Enemy)
+            {
+                StartCoroutine(DestroyObjectAfterTime(gameObject, gemLifeTime));
+            }
+            
         }
 
     }
+
+    private IEnumerator DestroyObjectAfterTime(GameObject gameObject, float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (gameObject)
+        {
+            spawnObjects.Remove(gameObject);
+            validSpawnPositions.Add(gameObject.transform.position);
+            Destroy(gameObject);
+        }
+    }        
     private void GatherValidPositions()
     {
         validSpawnPositions.Clear();
