@@ -44,6 +44,7 @@ public class ObjectSpawner : MonoBehaviour
         isSpawning = true;
         while (ActiveObjectCount() < maxObjects)
         {
+            SpawnObject();
             yield return new WaitForSeconds(spawnInterval);
         }
         isSpawning = false;
