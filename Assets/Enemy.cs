@@ -41,10 +41,18 @@ public class Enemy : MonoBehaviour
             // ✅ Check for platform above
             RaycastHit2D ceiling = Physics2D.Raycast(transform.position, Vector2.up, 2f, groundLayer);
 
-            if (wallInFront.collider || (isPlayerAbove && ceiling.collider))
-            {
-                shouldJump = true;
-            }
+            if (isGrounded)
+{
+    bool wallHit = wallInFront.collider != null;
+    bool playerAbove = player.position.y > transform.position.y + 1f;
+
+    if (wallHit || playerAbove)
+    {
+        shouldJump = true;
+        Debug.Log("Jump triggered");
+    }
+}
+
         }
         Debug.Log("Grounded: " + isGrounded);
 
