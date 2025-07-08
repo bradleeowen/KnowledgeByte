@@ -23,38 +23,35 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // ✅ Use proper ground detection with OverlapCircle
+        // Ground detection
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         float direction = Mathf.Sign(player.position.x - transform.position.x);
         bool isPlayerAbove = player.position.y > transform.position.y;
 
-        // ✅ Allow movement in air for better chasing
-        
+        // FIXED: Apply horizontal movement
+        rb.linearVelocity = new Vector2(direction * chasespeed, rb.linearVelocity.y);
+
         if (isGrounded)
         {
-            // ✅ Check for wall in front
+            // Check for wall in front
             Vector2 wallCheckOrigin = transform.position + new Vector3(direction * 0.5f, 0, 0);
             RaycastHit2D wallInFront = Physics2D.Raycast(wallCheckOrigin, Vector2.right * direction, 0.5f, groundLayer);
 
-            // ✅ Check for platform above
+            // Check for platform above
             RaycastHit2D ceiling = Physics2D.Raycast(transform.position, Vector2.up, 2f, groundLayer);
 
-            if (isGrounded)
-                            {
-    bool wallHit = wallInFront.collider != null;
-    bool playerAbove = player.position.y > transform.position.y + 1f;
+            bool wallHit = wallInFront.collider != null;
+            bool playerAbove = player.position.y > transform.position.y + 1f;
 
-    if (wallHit || playerAbove)
-    {
-        shouldJump = true;
-        Debug.Log("Jump triggered");
-    }
-             }
-
+            if (wallHit || playerAbove)
+            {
+                shouldJump = true;
+                Debug.Log("Jump triggered");
+            }
         }
-        Debug.Log("Grounded: " + isGrounded);
-
+        
+        Debug.Log("Grounded: " + isGrounded + " | Direction: " + direction);
     }
 
     private void FixedUpdate()
@@ -67,7 +64,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // ✅ Optional: Show ground check in Scene view for debugging
+    // Optional: Show ground check in Scene view for debugging
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
