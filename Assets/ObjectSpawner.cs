@@ -13,7 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     public float enemyProbability = 0.1f;
     public int maxObjects = 10;
     public float gemLifeTime = 5f;
-    public float spawnInterval = 0.5f;
+    public float spawnInterval = 0.3f;
 
     private List<Vector3> validSpawnPositions = new List<Vector3>();
     private List<GameObject> spawnObjects = new List<GameObject>();
@@ -121,6 +121,9 @@ public class ObjectSpawner : MonoBehaviour
             ObjectType objectType = RandomObjectType();
             GameObject gameObject = Instantiate(objectPrefabs[(int)objectType], spawnPosition, Quaternion.identity);
             spawnObjects.Add(gameObject);
+
+            Debug.Log($"Spawned {objectType} at {spawnPosition}");
+
 
             // Now remove the used position
             if (randomIndex >= 0 && randomIndex < validSpawnPositions.Count)

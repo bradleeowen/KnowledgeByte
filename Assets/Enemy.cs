@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Transform player;
-    public float chasespeed = 2f;
-    public float jumpforce = 2f;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
+    public float chasespeed = 2f;
+    public float jumpforce = 5f;
 
+    private Transform player;
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool shouldJump;
@@ -21,23 +23,31 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+        // ✅ Use proper ground detection with OverlapCircle
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
         float direction = Mathf.Sign(player.position.x - transform.position.x);
         bool isPlayerAbove = player.position.y > transform.position.y;
 
+        // ✅ Allow movement in air for better chasing
+        rb.linearVelocity = new Vector2(direction * chasespeed, rb.linearVelocity.y);
+
         if (isGrounded)
         {
-            rb.linearVelocity = new Vector2(direction * chasespeed, rb.linearVelocity.y);
+            // ✅ Check for wall in front
+            Vector2 wallCheckOrigin = transform.position + new Vector3(direction * 0.5f, 0, 0);
+            RaycastHit2D wallInFront = Physics2D.Raycast(wallCheckOrigin, Vector2.right * direction, 0.5f, groundLayer);
 
-            RaycastHit2D groundInFront = Physics2D.Raycast(transform.position, new Vector2(direction, 0), 2f, groundLayer);
-            RaycastHit2D gapAhead = Physics2D.Raycast(transform.position + new Vector3(direction, 0, 0), Vector2.down, 2f, groundLayer);
-            RaycastHit2D platformAbove = Physics2D.Raycast(transform.position, Vector2.up, 3f, groundLayer);
+            // ✅ Check for platform above
+            RaycastHit2D ceiling = Physics2D.Raycast(transform.position, Vector2.up, 2f, groundLayer);
 
-            if (!groundInFront.collider && !gapAhead.collider)
+            if (wallInFront.collider || (isPlayerAbove && ceiling.collider))
+            {
                 shouldJump = true;
-            else if (isPlayerAbove && platformAbove.collider)
-                shouldJump = true;
+            }
         }
+        Debug.Log("Grounded: " + isGrounded);
+
     }
 
     private void FixedUpdate()
@@ -45,8 +55,18 @@ public class Enemy : MonoBehaviour
         if (isGrounded && shouldJump)
         {
             shouldJump = false;
-            Vector2 jumpDir = new Vector2(Mathf.Sign(player.position.x - transform.position.x), 1).normalized;
-            rb.AddForce(jumpDir * jumpforce, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Reset vertical motion
+            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse); // Clean vertical jump
+        }
+    }
+
+    // ✅ Optional: Show ground check in Scene view for debugging
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
 }
