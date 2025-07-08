@@ -30,8 +30,7 @@ public class Enemy : MonoBehaviour
         bool isPlayerAbove = player.position.y > transform.position.y;
 
         // ✅ Allow movement in air for better chasing
-        rb.linearVelocity = new Vector2(direction * chasespeed, rb.linearVelocity.y);
-
+        
         if (isGrounded)
         {
             // ✅ Check for wall in front
@@ -42,7 +41,7 @@ public class Enemy : MonoBehaviour
             RaycastHit2D ceiling = Physics2D.Raycast(transform.position, Vector2.up, 2f, groundLayer);
 
             if (isGrounded)
-{
+                            {
     bool wallHit = wallInFront.collider != null;
     bool playerAbove = player.position.y > transform.position.y + 1f;
 
@@ -51,7 +50,7 @@ public class Enemy : MonoBehaviour
         shouldJump = true;
         Debug.Log("Jump triggered");
     }
-}
+             }
 
         }
         Debug.Log("Grounded: " + isGrounded);
@@ -59,7 +58,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {   
         if (isGrounded && shouldJump)
         {
             shouldJump = false;
