@@ -9,9 +9,9 @@ public class ObjectSpawner : MonoBehaviour
     public enum ObjectType { SmallGem, BigGem, Enemy }
     public Tilemap tilemap;
     public GameObject[] objectPrefabs;
-    public float bigGemProbability = 0.2f;
+    public float bigGemProbability = 0.4f;
     public float enemyProbability = 0.1f;
-    public int maxObjects = 5;
+    public int maxObjects = 10;
     public float gemLifeTime = 5f;
     public float spawnInterval = 0.5f;
 
@@ -96,10 +96,11 @@ public class ObjectSpawner : MonoBehaviour
 
         Vector3 spawnPosition = Vector3.zero;
         bool validPositionFound = false;
+        int randomIndex = -1;
 
         while (!validPositionFound && validSpawnPositions.Count > 0)
         {
-            int randomIndex = Random.Range(0, validSpawnPositions.Count);
+            randomIndex = Random.Range(0, validSpawnPositions.Count);
             Vector3 potentialPosition = validSpawnPositions[randomIndex];
             Vector3 leftPosition = potentialPosition + Vector3.left;
             Vector3 rightPosition = potentialPosition + Vector3.right;
@@ -109,8 +110,10 @@ public class ObjectSpawner : MonoBehaviour
                 spawnPosition = potentialPosition;
                 validPositionFound = true;
             }
-
-            validSpawnPositions.RemoveAt(randomIndex);
+            else
+            {
+                validSpawnPositions.RemoveAt(randomIndex);
+            }
         }
 
         if (validPositionFound)
@@ -119,13 +122,17 @@ public class ObjectSpawner : MonoBehaviour
             GameObject gameObject = Instantiate(objectPrefabs[(int)objectType], spawnPosition, Quaternion.identity);
             spawnObjects.Add(gameObject);
 
+            // Now remove the used position
+            if (randomIndex >= 0 && randomIndex < validSpawnPositions.Count)
+            {
+                validSpawnPositions.RemoveAt(randomIndex);
+            }
+
             if (objectType != ObjectType.Enemy)
             {
                 StartCoroutine(DestroyObjectAfterTime(gameObject, gemLifeTime));
             }
-            
         }
-
     }
 
     private IEnumerator DestroyObjectAfterTime(GameObject gameObject, float time)
