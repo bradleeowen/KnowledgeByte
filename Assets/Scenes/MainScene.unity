@@ -11626,6 +11626,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2338242369953476792, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7893212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338242369953476792, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8944565
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338242369953476792, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.007478595
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338242369953476792, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.055009186
+      objectReference: {fileID: 0}
     - target: {fileID: 3075404775726257372, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_Material
       value: 
@@ -11680,7 +11696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: damage
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: player
@@ -11700,7 +11716,7 @@ PrefabInstance:
       objectReference: {fileID: 595692425}
     - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: groundCheckRadius
-      value: 0.21
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: groundLayer.m_Bits
