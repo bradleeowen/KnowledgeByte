@@ -3659,7 +3659,7 @@ Transform:
   m_GameObject: {fileID: 595692424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: -1.03, z: 0}
+  m_LocalPosition: {x: -0.32, y: -1.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4191,7 +4191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &1011818708
 Grid:
   m_ObjectHideFlags: 0
@@ -4237,7 +4237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1103546470
 Transform:
   m_ObjectHideFlags: 0
@@ -10258,6 +10258,10 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 505850073659684279, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 505850073659684279, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -10266,16 +10270,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6200000, guid: e92c231db0844ed46a2a3792f219831e, type: 2}
     - target: {fileID: 3075404775726257372, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075404775726257372, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3874158134867915780, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.61406
+      value: 1.89
       objectReference: {fileID: 0}
     - target: {fileID: 3874158134867915780, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3447
+      value: -2.79
       objectReference: {fileID: 0}
     - target: {fileID: 3874158134867915780, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10329,6 +10337,10 @@ PrefabInstance:
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 595692425}
+    - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.21
+      objectReference: {fileID: 0}
     - target: {fileID: 6480148087044170063, guid: cc7f20cfa7593ca4abcc1d5615ce5a93, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 8
@@ -10414,6 +10426,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 8090636354981259648}
+    - target: {fileID: 129546341040129453, guid: 4f6bd2449f558934995294a573eeeae1, type: 3}
+      propertyPath: baseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5226427028101011690, guid: 4f6bd2449f558934995294a573eeeae1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.6
